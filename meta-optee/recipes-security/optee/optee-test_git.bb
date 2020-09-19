@@ -11,9 +11,9 @@ DEPENDS = "optee-os optee-client"
 
 SRC_URI = "git://github.com/OP-TEE/optee_test.git \
 "
-SRCREV = "a00eeb15ddfaa5b7d2cb340faeb36748d5aabffb"
+SRCREV = "f461e1d47fcc82eaa67508a3d796c11b7d26656e"
 PR = "r0"
-PV = "2.1.0+git${SRCPV}"
+PV = "3.9.0+git${SRCPV}"
 LIC_FILES_CHKSUM = "file://LICENSE.md;md5=daa2bcccc666345ab8940aab1315a4fa"
 
 inherit pythonnative
