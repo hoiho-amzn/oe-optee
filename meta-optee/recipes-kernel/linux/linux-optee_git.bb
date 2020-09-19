@@ -3,10 +3,10 @@
 
 require linux-optee.inc
 
-SRCREV = "a11f5a881d7f891ac4c12c45b76895d4d48f93e8"
-PV = "4.5+git${SRCPV}"
+SRCREV = "ea89b3a28f6a28c4c158ca3d64c2df4dd68321ed"
+PV = "5.4+git${SRCPV}"
 
-SRC_URI = "git://github.com/linaro-swg/linux.git;branch=optee"
+SRC_URI = "git://git.yoctoproject.org/linux-yocto.git;branch=v5.4/standard/arm-versatile-926ejs"
 
 SRC_URI_append_qemu-optee32   = " file://qemu.conf"
 SRC_URI_append_qemu-optee64   = " file://qemu.conf"
