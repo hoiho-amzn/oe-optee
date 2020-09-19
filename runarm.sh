@@ -3,7 +3,7 @@
 root=build/tmp-glibc/sysroots/x86_64-linux
 deploy=build/tmp-glibc/deploy/images/qemu-optee32
 
-$root/usr/bin/qemu-system-arm \
+./build/tmp-glibc/work/x86_64-linux/qemu-native/2.7.0+gitAUTOINC+173ff58580-r0/build/arm-softmmu/qemu-system-arm \
 	-s -S \
 	-nographic \
 	-machine virt,secure=on \

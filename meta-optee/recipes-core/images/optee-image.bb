@@ -10,10 +10,12 @@ DEPENDS_fvp-optee64 = "arm-tf"
 DEPENDS_hikey-optee64 = "arm-tf"
 DEPENDS_qemu-optee64 = "arm-tf"
 
+DEPENDS += "virtual/${TARGET_PREFIX}gcc coreutils-native"
+
 # By default the image has quite a bit of stuff in it.  Uncomment
 # these few lines to only install the bare minimum, making a minimal
 # busybox setup.
-IMAGE_INSTALL = "packagegroup-core-boot ${ROOTFS_PKGMANAGE_BOOTSTRAP} ${CORE_IMAGE_EXTRA_INSTALL}"
+IMAGE_INSTALL = "packagegroup-core-boot ${CORE_IMAGE_EXTRA_INSTALL}"
 IMAGE_LINGUAS = " "
 IMAGE_INSTALL += "coreutils file"
 

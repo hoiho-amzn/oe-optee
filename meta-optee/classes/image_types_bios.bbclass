@@ -11,7 +11,7 @@ KERNEL_BIOS ?= "${DEPLOY_DIR_IMAGE}/zImage"
 # The rootfs can either be the real rootfs, or set to "/dev/null" to
 # include a blank rootfs (and expecting the real rootfs to be
 # mountable.
-BIOS_INITRD ?= "${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.cpio.gz"
+BIOS_INITRD ?= "${IMGDEPLOYDIR}/optee-image-qemu-optee32.cpio.gz"
 
 # If the rootfs is not set, BIOS_ROOT_DEVICE should be set to
 # something like "root=/dev/sda" for where the given image will be
@@ -25,7 +25,7 @@ IMAGE_CMD_bios () {
     echo 'Empty' > ${DEPLOY_DIR_IMAGE}/empty.bin
     mkbios.sh \
         V=0 \
-        CFLAGS="${CFLAGS} --sysroot=${STAGING_DIR_HOST}" \
+        CFLAGS="${CFLAGS} --sysroot=${STAGING_DIR_HOST} -mfloat-abi=${TARGET_FPU}" \
         LDFLAGS="" \
         CROSS_COMPILE=${HOST_PREFIX} \
         O=${WORKDIR}/bios-work \
@@ -35,8 +35,10 @@ IMAGE_CMD_bios () {
         BIOS_SECURE_BLOB=${STAGING_DIR_HOST}/lib/firmware/tee.bin \
         BIOS_ROOT_DEVICE="${BIOS_ROOT_DEVICE}" \
         PLATFORM_FLAVOR=virt
-    cp ${WORKDIR}/bios-work/bios.bin ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.bios
+    cp ${WORKDIR}/bios-work/bios.bin ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.bios
 }
 
 IMAGE_TYPEDEP_bios = "cpio.gz"
 IMAGE_DEPENDS_bios = "optee-os qemu-bios-native virtual/kernel"
+
+IMAGE_TYPES += "bios"
