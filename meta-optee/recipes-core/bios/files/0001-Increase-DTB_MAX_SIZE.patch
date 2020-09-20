@@ -1,0 +1,23 @@
+From f2f3ad196059bfdc2393808f48f91cb926d7bd44 Mon Sep 17 00:00:00 2001
+From: Donald Chan <hoiho@lab126.com>
+Date: Sun, 20 Sep 2020 23:02:42 -0700
+Subject: [PATCH] Increase DTB_MAX_SIZE
+
+Starting in QEMU 3.x the DTB on virt machine has increased.
+---
+ bios/platform_config.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/bios/platform_config.h b/bios/platform_config.h
+index 1155430..7816dfd 100644
+--- a/bios/platform_config.h
++++ b/bios/platform_config.h
+@@ -52,7 +52,7 @@
+ 
+ #define CONSOLE_UART_BASE	UART0_BASE
+ 
+-#define DTB_MAX_SIZE		0x10000
++#define DTB_MAX_SIZE		0x100000
+ 
+ /* secure RAM is 16MByte but reserve the last 4MB to SDP memory pool */
+ #define TZ_RES_MEM_START	SECURE_RAM_START

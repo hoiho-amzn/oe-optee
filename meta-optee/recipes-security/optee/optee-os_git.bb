@@ -5,7 +5,6 @@ SUMMARY = "OPTEE OS"
 DESCRIPTION = "OPTEE OS"
 HOMEPAGE = "http://www.optee.org/"
 LICENSE = "BSD"
-DEPENDS = "python-pycrypto-native"
 
 # The variables are a bit overwhelming to try and set with Bitbake's
 # variable expansion, so just make the decision in Python.
@@ -55,9 +54,14 @@ python () {
 }
 
 inherit deploy
-inherit pythonnative
+inherit python3native
 
-SRC_URI = "git://github.com/OP-TEE/optee_os.git"
+DEPENDS += "python3-pyelftools-native"
+DEPENDS += "python3-pycryptodomex-native"
+
+SRC_URI = "git://github.com/OP-TEE/optee_os.git \
+           file://0001-Migrate-to-PyCryptodome.patch \
+           "
 SRCREV = "af141c61fe7a2430f3b4bb89661d8414117013b3"
 PR = "r0"
 PV = "3.9.0+git${SRCPV}"

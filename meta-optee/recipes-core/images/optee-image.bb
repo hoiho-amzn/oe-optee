@@ -10,7 +10,7 @@ DEPENDS_fvp-optee64 = "arm-tf"
 DEPENDS_hikey-optee64 = "arm-tf"
 DEPENDS_qemu-optee64 = "arm-tf"
 
-DEPENDS += "virtual/${TARGET_PREFIX}gcc coreutils-native"
+DEPENDS += "virtual/${TARGET_PREFIX}gcc coreutils-native libgcc"
 
 # By default the image has quite a bit of stuff in it.  Uncomment
 # these few lines to only install the bare minimum, making a minimal

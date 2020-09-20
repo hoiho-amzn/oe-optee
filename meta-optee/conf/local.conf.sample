@@ -243,7 +243,7 @@ RM_OLD_IMAGE = "1"
 # and Bluetooth as soon as someone touches libc.
 # ext2 is needed if you want to mount a filesystem instead of use an
 # initrd, and xattr is needed for coreutils to build correctly.
-DISTRO_FEATURES_DEFAULT="ext2 xattr"
+DISTRO_FEATURES_DEFAULT="ext2 xattr ipv4 ipv6"
 
 # Include an ssh server in the target.
 # EXTRA_IMAGE_FEATURES += "ssh-server-dropbear"

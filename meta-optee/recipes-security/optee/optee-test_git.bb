@@ -16,7 +16,9 @@ PR = "r0"
 PV = "3.9.0+git${SRCPV}"
 LIC_FILES_CHKSUM = "file://LICENSE.md;md5=daa2bcccc666345ab8940aab1315a4fa"
 
-inherit pythonnative
+inherit python3native
+
+DEPENDS += "python3-pycryptodomex-native"
 
 S = "${WORKDIR}/git"
 

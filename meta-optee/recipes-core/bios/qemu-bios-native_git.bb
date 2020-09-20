@@ -3,9 +3,11 @@ LICENSE = "BSD"
 
 inherit native
 
-SRCREV = "a1d0240357f977b51cc530a5e7f67f20e401a5b2"
+SRCREV = "b202e94fcd3f1392e4d1547633b7b8c575eb1727"
 SRC_URI = "git://github.com/linaro-swg/bios_qemu_tz_arm.git \
-	file://0001-HACK-implement-raise-function.patch"
+           file://0001-HACK-implement-raise-function.patch \
+           file://0001-Increase-DTB_MAX_SIZE.patch \
+           "
 PV = "0.0+git${SRCPV}"
 
 # TODO: This package is missing any license information.  We can use a
