@@ -5,17 +5,7 @@ SUMMARY = "OPTEE OS"
 DESCRIPTION = "OPTEE OS"
 HOMEPAGE = "http://www.optee.org/"
 LICENSE = "BSD"
-DEPENDS = "python-pycrypto-native python-wand-native"
-
-# Needed so that python-wand can find the installed imagemagick
-# install.
-export MAGICK_HOME="${STAGING_DIR_NATIVE}${prefix}"
-
-# Override any timeout value set by policy, to give time for the font
-# generaiton.  Some versions of ImageMagick seem to have a bug where
-# the timeout is interpreted as ms instead os seconds, so make it
-# quite large.
-export MAGICK_TIME_LIMIT="1200000"
+DEPENDS = "python-pycrypto-native"
 
 # The variables are a bit overwhelming to try and set with Bitbake's
 # variable expansion, so just make the decision in Python.
