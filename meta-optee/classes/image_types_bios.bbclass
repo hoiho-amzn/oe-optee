@@ -21,7 +21,6 @@ BIOS_ROOT_DEVICE ?= ""
 IMAGE_CMD_bios () {
     rm -rf "${WORKDIR}/bios-work"
     mkdir "${WORKDIR}/bios-work"
-    echo 'Empty' > ${DEPLOY_DIR_IMAGE}/empty.bin
     ${COMPONENTS_DIR}/${BUILD_ARCH}/qemu-bios-native/usr/bin/mkbios.sh \
         V=0 \
         CFLAGS="${CFLAGS} --sysroot=${COMPONENTS_DIR}/${BUILD_ARCH}/optee-os/ -mfloat-abi=${TARGET_FPU}" \
