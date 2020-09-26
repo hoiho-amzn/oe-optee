@@ -1,0 +1,22 @@
+From 7d3ba5a1c0325db5eb41f629967103a643bb9955 Mon Sep 17 00:00:00 2001
+From: Donald Chan <hoiho@lab126.com>
+Date: Sat, 26 Sep 2020 14:25:13 -0700
+Subject: [PATCH] Use correct rootfs.cpio.gz file for qemu target
+
+---
+ bios/main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/bios/main.c b/bios/main.c
+index 41ff85b..ebfe5c0 100644
+--- a/bios/main.c
++++ b/bios/main.c
+@@ -150,7 +150,7 @@ static void copy_ns_images(void)
+ 	dst = copy_dtb(dtb_addr, DTB_START);
+ 
+ 	rootfs_start = ROUNDUP(dst, PAGE_SIZE);
+-	r = semihosting_download_file("rootfs.cpio.gz", 32 * 1024 * 1024,
++	r = semihosting_download_file("optee-image-qemu-optee32.cpio.gz", 32 * 1024 * 1024,
+ 				      rootfs_start);
+ 	CHECK(r < 0);
+ 	rootfs_end = rootfs_start + r;

@@ -99,6 +99,11 @@ do_install () {
     done
 }
 
+do_deploy () {
+    install -m 644 ${B}/out/arm-plat-${OPTEE_SHORT_MACHINE}/core/*.bin ${DEPLOYDIR}
+}
+addtask do_deploy after do_compile
+
 INHIBIT_PACKAGE_STRIP = "1"
 
 FILES_${PN} = "/lib/firmware/"
