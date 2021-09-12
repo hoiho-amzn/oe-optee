@@ -1,7 +1,9 @@
 #!/bin/bash
 
-root=$(readlink -f build/tmp-glibc/sysroots-components/x86_64/qemu-system-native)
+root=$(readlink -f build/tmp-glibc/sysroots-components/x86_64)
 deploy=build/tmp-glibc/deploy/images/qemu-optee32
+QEMU=${root}/qemu-system-native/usr/bin/qemu-system-arm
+LD_LIBRARY_PATH="${root}/glib-2.0-native/usr/lib/:${root}/libpcre-native/usr/lib"
 
 HOSTFWD=
 
@@ -9,7 +11,7 @@ HOSTFWD=
 #
 # Start in monitor mode (c to start CPU): -S
 
-cd ${deploy} && ${root}/usr/bin/qemu-system-arm \
+cd ${deploy} && LD_LIBRARY_PATH=${LD_LIBRARY_PATH} ${QEMU} \
 	-nographic \
 	-s -machine virt,secure=on -cpu cortex-a15 \
 	-object rng-random,filename=/dev/urandom,id=rng0 \
