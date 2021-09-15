@@ -9,9 +9,9 @@ SRC_URI = " \
     git://github.com/OP-TEE/optee_client.git \
     file://tee-supplicant.init \
 "
-SRCREV = "e9e55969d76ddefcb5b398e592353e5c7f5df198"
+SRCREV = "06e1b32f6a7028e039c625b07cfc25fda0c17d53"
 PR = "r0"
-PV = "3.9.0+git${SRCPV}"
+PV = "3.14.0+git${SRCPV}"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=69663ab153298557a59c67a60a743e5b"
 
 S = "${WORKDIR}/git"

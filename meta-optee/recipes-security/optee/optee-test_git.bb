@@ -11,9 +11,9 @@ DEPENDS = "optee-os optee-client"
 
 SRC_URI = "git://github.com/OP-TEE/optee_test.git \
 "
-SRCREV = "f461e1d47fcc82eaa67508a3d796c11b7d26656e"
+SRCREV = "f2eb88affbb7f028561b4fd5cbd049d5d704f741"
 PR = "r0"
-PV = "3.9.0+git${SRCPV}"
+PV = "3.14.0+git${SRCPV}"
 LIC_FILES_CHKSUM = "file://LICENSE.md;md5=daa2bcccc666345ab8940aab1315a4fa"
 
 inherit python3native
@@ -21,6 +21,8 @@ inherit python3native
 DEPENDS += "python3-pycryptodomex-native"
 
 S = "${WORKDIR}/git"
+
+EXTRA_OEMAKE_append = " LIBGCC_LOCATE_CFLAGS=--sysroot=${STAGING_DIR_HOST}"
 
 do_compile () {
     export TA_DEV_KIT_DIR=${STAGING_INCDIR}/optee/export-user_ta

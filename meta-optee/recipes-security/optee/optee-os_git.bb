@@ -60,17 +60,19 @@ DEPENDS += "python3-pyelftools-native"
 DEPENDS += "python3-pycryptodomex-native"
 
 SRC_URI = "git://github.com/OP-TEE/optee_os.git \
-           file://0001-Migrate-to-PyCryptodome.patch \
+           file://0001-mk-LIBGCC_LOCATE_CFLAGS-allows-setting-sysroot-path-.patch \
            "
-SRCREV = "af141c61fe7a2430f3b4bb89661d8414117013b3"
+SRCREV = "d21befa5e53eae9db469eba1685f5aa5c6f92c2f"
 PR = "r0"
-PV = "3.9.0+git${SRCPV}"
+PV = "3.14.0+git${SRCPV}"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=c1f21c4f72f372ef38a5a4aee55ec173"
 
 S = "${WORKDIR}/git"
 
 CFG_TEE_TA_LOG_LEVEL ?= "1"
 CFG_TEE_CORE_LOG_LEVEL ?= "1"
+
+EXTRA_OEMAKE_append = " LIBGCC_LOCATE_CFLAGS=--sysroot=${STAGING_DIR_HOST}"
 
 do_compile () {
     unset LDFLAGS

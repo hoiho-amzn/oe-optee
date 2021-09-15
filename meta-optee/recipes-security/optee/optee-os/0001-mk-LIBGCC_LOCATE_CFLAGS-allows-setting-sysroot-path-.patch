@@ -1,0 +1,46 @@
+From e063a19f2a9ed7401ca3cf4c277aaf4cd74ffeba Mon Sep 17 00:00:00 2001
+From: Etienne Carriere <etienne.carriere@linaro.org>
+Date: Thu, 8 Jul 2021 10:28:30 +0200
+Subject: [PATCH] mk: LIBGCC_LOCATE_CFLAGS allows setting sysroot path for GCC
+
+OP-TEE OS compilation fails with Yocto like build environment
+as libgcc.a cannot be find when gcc.mk is executed [1]. A trick
+used  was to set comp-cflagscore='--sysroot=/path/to/sysroot'
+at OP-TEE OS build. This is no more sufficient as CXXFLAGS
+(comp-cxxflagscore=...) may also be needed.
+
+This change implements LIBGCC_LOCATE_CFLAGS as a better way to
+path sysroot info for the expected purpose, as proposed in [2] and
+[3], recently mentioned in [1] and used in several distributions.
+
+Build environment are expected to set path when needed:
+LIBGCC_LOCATE_CFLAGS='--sysroot=/path/to/sysroot'
+
+Link: [1] https://github.com/OP-TEE/optee_os/issues/4673
+Link: [2] https://github.com/OP-TEE/optee_os/pull/2853
+Link: [3] https://github.com/OP-TEE/optee_os/issues/4485#issuecomment-803025139
+
+Signed-off-by: Etienne Carriere <etienne.carriere@linaro.org>
+---
+ mk/gcc.mk | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/mk/gcc.mk b/mk/gcc.mk
+index adc77a24..81bfa78a 100644
+--- a/mk/gcc.mk
++++ b/mk/gcc.mk
+@@ -13,11 +13,11 @@ nostdinc$(sm)	:= -nostdinc -isystem $(shell $(CC$(sm)) \
+ 			-print-file-name=include 2> /dev/null)
+ 
+ # Get location of libgcc from gcc
+-libgcc$(sm)  	:= $(shell $(CC$(sm)) $(CFLAGS$(arch-bits-$(sm))) \
++libgcc$(sm)  	:= $(shell $(CC$(sm)) $(LIBGCC_LOCATE_CFLAGS) $(CFLAGS$(arch-bits-$(sm))) \
+ 			-print-libgcc-file-name 2> /dev/null)
+-libstdc++$(sm)	:= $(shell $(CXX$(sm)) $(CXXFLAGS$(arch-bits-$(sm))) $(comp-cxxflags$(sm)) \
++libstdc++$(sm)	:= $(shell $(CXX$(sm)) $(LIBGCC_LOCATE_CFLAGS) $(CXXFLAGS$(arch-bits-$(sm))) $(comp-cxxflags$(sm)) \
+ 			-print-file-name=libstdc++.a 2> /dev/null)
+-libgcc_eh$(sm)	:= $(shell $(CXX$(sm)) $(CXXFLAGS$(arch-bits-$(sm))) $(comp-cxxflags$(sm)) \
++libgcc_eh$(sm)	:= $(shell $(CXX$(sm)) $(LIBGCC_LOCATE_CFLAGS) $(CXXFLAGS$(arch-bits-$(sm))) $(comp-cxxflags$(sm)) \
+ 			-print-file-name=libgcc_eh.a 2> /dev/null)
+ 
+ # Define these to something to discover accidental use
