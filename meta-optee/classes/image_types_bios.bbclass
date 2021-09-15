@@ -37,6 +37,6 @@ IMAGE_CMD_bios () {
 }
 
 IMAGE_TYPEDEP_bios = "cpio.gz"
-do_image_bios[depends] += "optee-os:do_install qemu-bios-native:do_install virtual/kernel:do_install"
+do_image_bios[depends] += "optee-os:do_install qemu-bios-native:do_populate_sysroot virtual/kernel:do_install"
 
 IMAGE_TYPES += "bios"
