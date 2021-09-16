@@ -34,16 +34,19 @@ do_compile () {
 }
 
 do_install () {
-    install -d ${D}/usr/bin
-    install -d ${D}/lib/optee_armtz
+    install -d ${D}${bindir}
+    install -d ${D}${base_libdir}/optee_armtz
+    install -d ${D}${libdir}/tee-supplicant/plugins/
 
-    install ${S}/out/xtest/xtest ${D}/usr/bin/
+    install ${S}/out/xtest/xtest ${D}${bindir}
 
     find ${S}/out/ta -name '*.ta' | while read name; do
-        install -m 444 $name ${D}/lib/optee_armtz/
+        install -m 444 $name ${D}${base_libdir}/optee_armtz/
     done
+
+    install ${S}/out/supp_plugin/*.plugin ${D}${libdir}/tee-supplicant/plugins/
 }
 
-FILES_${PN} = "/usr/bin/ /lib/optee_armtz/"
+FILES_${PN} = "/usr/bin/ /lib/optee_armtz/ /usr/lib/tee-supplicant/plugins/"
 
 INHIBIT_PACKAGE_STRIP = "1"
