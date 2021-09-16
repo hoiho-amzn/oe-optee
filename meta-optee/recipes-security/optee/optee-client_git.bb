@@ -26,17 +26,25 @@ inherit python3native
 
 do_compile () {
     oe_runmake -C ${S} EXPORT_DIR=${D} build-libteec
+    oe_runmake -C ${S} EXPORT_DIR=${D} build-libckteec
     oe_runmake -C ${S} EXPORT_DIR=${D} build-tee-supplicant
 }
 
 do_install () {
-    oe_runmake -C ${S} EXPORT_DIR=${D} install
+    # Install into scratch directory
+    mkdir -p ${WORKDIR}/scratch/
+    oe_runmake -C ${S} EXPORT_DIR=${WORKDIR}/scratch/ install
 
-    # Make them proper symlinks.
-    cd ${D}/usr/lib
-    rm -f libteec.so libteec.so.1
-    ln -s libteec.so.1.0 libteec.so.1
-    ln -s libteec.so.1 libteec.so
+    # Install .so and tee-supplicant
+    install -d ${D}${libdir}
+    oe_soinstall ${WORKDIR}/scratch/usr/lib/libteec.so.1.0.0 ${D}${libdir}
+    oe_soinstall ${WORKDIR}/scratch/usr/lib/libckteec.so.0.1.0 ${D}${libdir}
+    install -d ${D}${sbindir}
+    install -m 755 ${WORKDIR}/scratch/usr/sbin/tee-supplicant ${D}${sbindir}/tee-supplicant
+
+    # Install headers
+    install -d ${D}/usr/include/
+    install -m 644 ${WORKDIR}/scratch/usr/include/*.h ${D}/usr/include/
 
     # Startup script.
     install -d ${D}/etc/init.d
@@ -46,7 +54,7 @@ do_install () {
 INITSCRIPT_NAME = "tee-supplicant"
 
 PACKAGES += "tee-supplicant"
-FILES_${PN} = "${libdir}/libteec*"
+FILES_${PN} = "${libdir}/libteec* ${libdir}/libckteec*"
 FILES_tee-supplicant = "${sbindir}/tee-supplicant"
 FILES_${PN} += "${sysconfdir}/init.d/tee-supplicant"
 

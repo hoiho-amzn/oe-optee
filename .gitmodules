@@ -1,12 +1,12 @@
 [submodule "openembedded-core"]
 	path = openembedded-core
 	url = git://git.openembedded.org/openembedded-core
-	branch = dunfell
+	branch = hardknott
 [submodule "bitbake"]
 	path = bitbake
 	url = git://git.openembedded.org/bitbake
-	branch = 1.46
+	branch = 1.50
 [submodule "meta-openembedded"]
 	path = meta-openembedded
 	url = git://git.openembedded.org/meta-openembedded
-	branch = dunfell
+	branch = hardknott

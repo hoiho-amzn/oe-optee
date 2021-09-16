@@ -3,7 +3,7 @@
 root=$(readlink -f build/tmp-glibc/sysroots-components/x86_64)
 deploy=build/tmp-glibc/deploy/images/qemu-optee32
 QEMU=${root}/qemu-system-native/usr/bin/qemu-system-arm
-LD_LIBRARY_PATH="${root}/glib-2.0-native/usr/lib/:${root}/libpcre-native/usr/lib"
+LD_LIBRARY_PATH="${root}/glib-2.0-native/usr/lib/:${root}/libpcre-native/usr/lib:${root}/libffi-native/usr/lib"
 
 HOSTFWD=
 
