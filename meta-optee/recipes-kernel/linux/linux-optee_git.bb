@@ -6,7 +6,10 @@ require linux-optee.inc
 SRCREV = "ea89b3a28f6a28c4c158ca3d64c2df4dd68321ed"
 PV = "5.4+git${SRCPV}"
 
-SRC_URI = "git://git.yoctoproject.org/linux-yocto.git;branch=v5.4/standard/arm-versatile-926ejs"
+SRC_URI = "git://git.yoctoproject.org/linux-yocto.git;branch=v5.4/standard/arm-versatile-926ejs \
+           file://0001-tee-add-support-for-session-s-client-UUID-generation.patch \
+           file://0002-tee-optee-Add-support-for-session-login-client-UUID-.patch \
+           "
 
 SRC_URI_append_qemu-optee32   = " file://qemu.conf"
 SRC_URI_append_qemu-optee64   = " file://qemu.conf"
