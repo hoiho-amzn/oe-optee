@@ -22,6 +22,8 @@ DEPENDS += "python3-pycryptodomex-native"
 
 S = "${WORKDIR}/git"
 
+CFG_PKCS11_TA ?= "y"
+
 EXTRA_OEMAKE_append = " LIBGCC_LOCATE_CFLAGS=--sysroot=${STAGING_DIR_HOST}"
 
 do_compile () {
@@ -30,6 +32,7 @@ do_compile () {
 
     export OPTEE_CLIENT_EXPORT=${STAGING_DIR_HOST}/usr
     oe_runmake V=1 CROSS_COMPILE_HOST=${HOST_PREFIX} \
+        CFG_PKCS11_TA=${CFG_PKCS11_TA} \
         CROSS_COMPILE_TA=${HOST_PREFIX}
 }
 

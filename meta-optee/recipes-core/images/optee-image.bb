@@ -22,6 +22,7 @@ IMAGE_INSTALL += "coreutils file"
 # Install the packages for optee.
 IMAGE_INSTALL += "tee-supplicant"
 IMAGE_INSTALL += "optee-test"
+IMAGE_INSTALL += "optee-os"
 
 #SRC_URI = ""
 

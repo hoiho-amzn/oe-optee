@@ -71,6 +71,7 @@ S = "${WORKDIR}/git"
 
 CFG_TEE_TA_LOG_LEVEL ?= "1"
 CFG_TEE_CORE_LOG_LEVEL ?= "1"
+CFG_PKCS11_TA ?= "y"
 
 EXTRA_OEMAKE_append = " LIBGCC_LOCATE_CFLAGS=--sysroot=${STAGING_DIR_HOST}"
 
@@ -81,8 +82,9 @@ do_compile () {
     ${HOST_PREFIX}gcc --version
     # TODO: The log level should be configurable at the top level.
     oe_runmake all \
+        CFG_PKCS11_TA=${CFG_PKCS11_TA} \
         CFG_TEE_TA_LOG_LEVEL=${CFG_TEE_TA_LOG_LEVEL} \
-	CFG_TEE_CORE_LOG_LEVEL=${CFG_TEE_CORE_LOG_LEVEL}
+        CFG_TEE_CORE_LOG_LEVEL=${CFG_TEE_CORE_LOG_LEVEL}
 }
 
 do_install () {
@@ -99,6 +101,13 @@ do_install () {
     for f in ${B}/out/arm-plat-${OPTEE_SHORT_MACHINE}/export-ta_${OPTEE_ARCH}/*; do
         cp -aR $f ${D}/usr/include/optee/export-user_ta/
     done
+
+    # Install TAs
+    install -d ${D}${base_libdir}/optee_armtz
+
+    find ${S}/out/arm-plat-${OPTEE_SHORT_MACHINE}/export-ta_${OPTEE_ARCH}/ -name '*.ta' | while read name; do
+        install -m 444 $name ${D}${base_libdir}/optee_armtz/
+    done
 }
 
 do_deploy () {
@@ -108,6 +117,6 @@ addtask do_deploy after do_compile
 
 INHIBIT_PACKAGE_STRIP = "1"
 
-FILES_${PN} = "/lib/firmware/"
+FILES_${PN} = "/lib/firmware/ /lib/optee_armtz/"
 FILES_${PN}-dev = "/usr/include/optee"
 INSANE_SKIP_${PN}-dev = "staticdev"
